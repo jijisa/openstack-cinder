@@ -971,6 +971,12 @@ class CreateVolumeFromSpecTask(flow_utils.CinderTask):
                                 image_utils.verify_glance_image_signature(
                                     context, image_service,
                                     image_id, tmp_image)
+                            # Edit: by Heechul Kim to fix
+                            # image-to-volume-to-image-to-volume problem.
+                            # Just update signature_verified metadata in
+                            # image_meta to avoid conflict with volume's
+                            # signature_verified metadata.
+                            image_meta.update({'signature_verified': verified})
                             self.db.volume_glance_metadata_bulk_create(
                                 context, volume.id,
                                 {'signature_verified': verified})
