@@ -977,9 +977,6 @@ class CreateVolumeFromSpecTask(flow_utils.CinderTask):
                             # image_meta to avoid conflict with volume's
                             # signature_verified metadata.
                             image_meta.update({'signature_verified': verified})
-                            self.db.volume_glance_metadata_bulk_create(
-                                context, volume.id,
-                                {'signature_verified': verified})
                         # Try to create the volume as the minimal size,
                         # then we can extend once the image has been
                         # downloaded.
