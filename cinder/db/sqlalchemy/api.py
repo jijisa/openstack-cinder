@@ -5344,9 +5344,6 @@ def volume_glance_metadata_create(context, volume_id, key, value):
             filter_by(deleted=False).all()
 
         if len(rows) > 0:
-            vol_glance_metadata = rows[0]
-            if vol_glance_metadata.value  == str(value):
-                return
             raise exception.GlanceMetadataExists(key=key,
                                                  volume_id=volume_id)
 
@@ -5377,9 +5374,6 @@ def volume_glance_metadata_bulk_create(context, volume_id, metadata):
                 filter_by(deleted=False).all()
 
             if len(rows) > 0:
-                vol_glance_metadata = rows[0]
-                if vol_glance_metadata.value == str(value):
-                    continue
                 raise exception.GlanceMetadataExists(key=key,
                                                      volume_id=volume_id)
 
